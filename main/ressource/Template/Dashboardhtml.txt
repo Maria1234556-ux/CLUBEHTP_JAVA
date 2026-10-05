@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CLUBEHTP - Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: #8B0000;
+            color: white;
+            padding: 30px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            padding: 0 20px 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            margin-bottom: 30px;
+        }
+
+        .sidebar-header h2 {
+            color: white;
+            margin: 10px 0 5px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar-menu li {
+            padding: 15px 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-menu li:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .sidebar-menu li.active {
+            background: rgba(255,255,255,0.2);
+            border-left: 4px solid white;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .event-card, .reunion-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            border-left: 4px solid #8B0000;
+            cursor: pointer;
+        }
+
+        .event-card:hover, .reunion-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .badge-public {
+            background: #28a745;
+            color: white;
+        }
+
+        .badge-private {
+            background: #ff9800;
+            color: white;
+        }
+
+        .btn-presence {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn-presence:hover {
+            background: #218838;
+        }
+
+        .btn-cellules {
+            background: #8B0000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        .btn-cellules:hover {
+            background: #a00000;
+        }
+
+        .event-date, .event-lieu {
+            color: #666;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+            }
+            .sidebar-header h2, .sidebar-header p, .sidebar-menu li span:last-child {
+                display: none;
+            }
+            .main-content {
+                margin-left: 70px;
+            }
+            .sidebar-menu li {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>CLUBEHTP</h2>
+            <p>Welcome Ehtpiestes!</p>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="active" onclick="showSection('public-event')">
+                <span>🌍</span> <span>Public Event</span>
+            </li>
+            <li onclick="showSection('private-event')">
+                <span>🏠</span> <span>Private Event</span>
+            </li>
+            <li onclick="showSection('my-meeting')">
+                <span>📋</span> <span>My Meeting</span>
+            </li>
+            <li onclick="showSection('my-club')">
+                <span>🏆</span> <span>My Club</span>
+            </li>
+            <li onclick="showSection('my-cells')">
+                <span>💬</span> <span>My Cells</span>
+            </li>
+            <li onclick="logout()">
+                <span>🚪</span> <span>Log out</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div id="public-event-section" class="section active">
+            <h1>🌍 Public Events</h1>
+            <div id="public-events-container"></div>
+        </div>
+
+        <div id="private-event-section" class="section" style="display:none;">
+            <h1>🏠 Private Events</h1>
+            <div id="private-events-container"></div>
+        </div>
+
+        <div id="my-meeting-section" class="section" style="display:none;">
+            <h1>📋 My Meetings</h1>
+            <div id="meetings-container"></div>
+        </div>
+
+        <div id="my-club-section" class="section" style="display:none;">
+            <h1>🏆 My Clubs</h1>
+            <div id="clubs-container"></div>
+        </div>
+
+        <div id="my-cells-section" class="section" style="display:none;">
+            <h1>💬 My Cells</h1>
+            <div id="cells-container"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const userId = localStorage.getItem('userId') || window.location.pathname.split('/')[2] || 1;
+    const userRole = localStorage.getItem('userRole') || 'MEMBRE';
+
+    function showSection(section) {
+        document.getElementById('public-event-section').style.display = 'none';
+        document.getElementById('private-event-section').style.display = 'none';
+        document.getElementById('my-meeting-section').style.display = 'none';
+        document.getElementById('my-club-section').style.display = 'none';
+        document.getElementById('my-cells-section').style.display = 'none';
+
+        if (section === 'public-event') {
+            document.getElementById('public-event-section').style.display = 'block';
+            loadPublicEvents();
+        } else if (section === 'private-event') {
+            document.getElementById('private-event-section').style.display = 'block';
+            loadPrivateEvents();
+        } else if (section === 'my-meeting') {
+            document.getElementById('my-meeting-section').style.display = 'block';
+            loadReunions();
+        } else if (section === 'my-club') {
+            document.getElementById('my-club-section').style.display = 'block';
+            loadMyClubs();
+        } else if (section === 'my-cells') {
+            document.getElementById('my-cells-section').style.display = 'block';
+            loadMyCells();
+        }
+
+        const items = document.querySelectorAll('.sidebar-menu li');
+        items.forEach(item => item.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+    }
+
+    // Public Events - with example data
+    function loadPublicEvents() {
+        const container = document.getElementById('public-events-container');
+        const events = [
+            { titre: "Forum des Clubs EHTP", description: "Rencontre avec tous les clubs de l'école, découvrez leurs activités et rejoignez celui qui vous correspond.", lieu: "Campus Principal", date: "2026-06-15T09:00:00" },
+            { titre: "Conférence Innovation Tech", description: "Découverte des nouvelles technologies et tendances du marché par des experts.", lieu: "Grand Amphi", date: "2026-06-20T14:00:00" },
+            { titre: "Journée Portes Ouvertes", description: "Visitez le campus, rencontrez les professeurs et les étudiants.", lieu: "Entrée Principale", date: "2026-06-25T10:00:00" }
+        ];
+        container.innerHTML = '';
+        events.forEach(e => {
+            const date = new Date(e.date).toLocaleString();
+            container.innerHTML += `
+                <div class="event-card">
+                    <span class="badge badge-public">🌍 Public</span>
+                    <h3>${e.titre}</h3>
+                    <p>${e.description}</p>
+                    <p class="event-lieu">📍 ${e.lieu}</p>
+                    <p class="event-date">📅 ${date}</p>
+                </div>
+            `;
+        });
+    }
+
+    // Private Events - with example data
+    function loadPrivateEvents() {
+        const container = document.getElementById('private-events-container');
+        const events = [
+            { titre: "Hackathon IT Club", description: "Compétition de programmation 24h non-stop. Venez montrer vos compétences!", lieu: "Labo Informatique", date: "2026-07-01T09:00:00" },
+            { titre: "Atelier Web Development", description: "Formation sur les technologies web modernes (React, Node.js).", lieu: "Salle B12", date: "2026-06-18T14:00:00" },
+            { titre: "Caravane Social Club", description: "Action humanitaire pour aider les personnes dans le besoin.", lieu: "Casablanca", date: "2026-07-10T09:00:00" }
+        ];
+        container.innerHTML = '';
+        events.forEach(e => {
+            const date = new Date(e.date).toLocaleString();
+            container.innerHTML += `
+                <div class="event-card">
+                    <span class="badge badge-private">🏠 Private</span>
+                    <h3>${e.titre}</h3>
+                    <p>${e.description}</p>
+                    <p class="event-lieu">📍 ${e.lieu}</p>
+                    <p class="event-date">📅 ${date}</p>
+                </div>
+            `;
+        });
+    }
+
+    // Meetings - with example data
+    function loadReunions() {
+        const container = document.getElementById('meetings-container');
+        const meetings = [
+            { id: 1, titre: "Réunion IT Club", description: "Préparation du hackathon et répartition des tâches.", lieu: "Salle B12", date: "2026-06-10T14:00:00" },
+            { id: 2, titre: "Atelier Python", description: "Formation avancée sur Python et ses bibliothèques.", lieu: "Labo Info", date: "2026-06-12T15:00:00" },
+            { id: 3, titre: "Réunion Social Club", description: "Organisation de la caravane humanitaire.", lieu: "Salle C05", date: "2026-06-14T16:00:00" }
+        ];
+        container.innerHTML = '';
+        meetings.forEach(m => {
+            const date = new Date(m.date).toLocaleString();
+            container.innerHTML += `
+                <div class="reunion-card">
+                    <span class="badge badge-private">📋 Meeting</span>
+                    <h3>🤝 ${m.titre}</h3>
+                    <p>${m.description}</p>
+                    <p class="event-lieu">📍 ${m.lieu}</p>
+                    <p class="event-date">📅 ${date}</p>
+                    <button class="btn-presence" onclick="alert('✅ Presence marked successfully!')">✅ Mark presence</button>
+                </div>
+            `;
+        });
+    }
+
+    // My Clubs - with example data
+    function loadMyClubs() {
+        const container = document.getElementById('clubs-container');
+        const clubs = [
+            { id: 1, nom: "IT Club", position: "Member", description: "Club des technologies et innovation" },
+            { id: 2, nom: "Social Club", position: "Member", description: "Club des actions humanitaires" },
+            { id: 3, nom: "Enactus Club", position: "Member", description: "Club de l'entrepreneuriat social" }
+        ];
+        container.innerHTML = '';
+        clubs.forEach(club => {
+            container.innerHTML += `
+                <div class="event-card" onclick="goToCellules(${club.id}, '${club.nom}')">
+                    <h3>🏆 ${club.nom}</h3>
+                    <p>${club.description}</p>
+                    <p>Position: ${club.position}</p>
+                    <button class="btn-cellules">💬 View Cells</button>
+                </div>
+            `;
+        });
+    }
+
+    // My Cells - 6 cells with 14 members each
+    function loadMyCells() {
+        const container = document.getElementById('cells-container');
+
+        const cells = [
+            { id: 1, name: "Media & Design Cell", description: "Manages media and design activities", members: 14, leader: "Ahmed" },
+            { id: 2, name: "Logistic Cell", description: "Manages logistics and supplies", members: 14, leader: "Fatima" },
+            { id: 3, name: "Event Cell", description: "Organizes events and meetings", members: 14, leader: "Karim" },
+            { id: 4, name: "Sponsoring Cell", description: "Manages sponsors and partnerships", members: 14, leader: "Fouad" },
+            { id: 5, name: "Project Cell", description: "Manages projects and development", members: 14, leader: "Mouad" },
+            { id: 6, name: "Course Cell", description: "Manages courses and training", members: 14, leader: "Laila" }
+        ];
+
+        container.innerHTML = '';
+
+        cells.forEach(cell => {
+            container.innerHTML += `
+                <div class="event-card" onclick="goToConversation(${cell.id}, '${cell.name}')">
+                    <h3>💬 ${cell.name}</h3>
+                    <p>${cell.description}</p>
+                    <p>👥 ${cell.members} members | Leader: ${cell.leader}</p>
+                </div>
+            `;
+        });
+    }
+
+    // Redirect to cells page
+    function goToCellules(clubId, clubName) {
+        window.location.href = `/clubs/cellules?clubId=${clubId}&clubName=${encodeURIComponent(clubName)}&role=${userRole}`;
+    }
+
+    // Redirect to conversation
+    function goToConversation(cellId, cellName) {
+        const url = `/clubs/conversation?celluleId=${cellId}&clubId=1&clubName=IT%20Club&role=${userRole}&cellName=${encodeURIComponent(cellName)}`;
+        window.location.href = url;
+    }
+
+    function logout() {
+        if (confirm('Are you sure you want to logout?')) {
+            localStorage.removeItem('userId');
+            localStorage.removeItem('userRole');
+            window.location.href = '/';
+        }
+    }
+
+    // Load public events by default
+    loadPublicEvents();
+</script>
+
+</body>
+</html>

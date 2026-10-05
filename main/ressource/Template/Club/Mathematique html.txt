@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CLUBEHTP - Mathematic Club</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+        }
+
+        .header {
+            background: #003366;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-area img {
+            width: 40px;
+            height: 40px;
+            background: white;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .site-title h1 {
+            font-size: 20px;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            background: #8B0000;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #003366;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .club-photo {
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .club-photo img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #003366;
+            margin: 20px 0 10px;
+            text-align: left;
+        }
+
+        p {
+            text-align: left;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            text-align: left;
+        }
+
+        th {
+            background: #003366;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+
+        td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .btn-join {
+            display: inline-block;
+            background: #8B0000;
+            color: white;
+            padding: 10px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        .footer {
+            background: #003366;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo-area">
+        <img src="https://www.laformation.ma/images/contenu/341624fa1.jpg" alt="Logo EHTP">
+        <div class="site-title">
+            <h1>CLUBEHTP</h1>
+        </div>
+    </div>
+    <a href="/" class="back-link">Back</a>
+</div>
+
+<div class="container">
+    <h1>mathematique  Club</h1>
+
+    <div class="club-photo">
+        <img src="/images/math.jpeg" alt="mathematique Club">
+    </div>
+
+    <div class="section-title">Description</div>
+    <p>The Mathematics Club is an academic club dedicated to enhancing students’ understanding and appreciation of mathematics
+        It aims to strengthen logical thinking, problem-solving skills, and analytical abilities through regular exercises and challenging problems
+        The club organizes workshops, training sessions, and math competitions to help members deepen their knowledge and improve their performance
+        It also encourages collaboration, curiosity, and a love for mathematics among students. Overall, the Mathematics Club provides a supportive environment for learning and mastering mathematical concepts</p>
+
+    <div class="section-title">Board Members</div>
+    <p>Maryam Elmassafi - Hiba El Hammali - Salma Maache - Ahmed Rida Lilane - Ali Elidrissi Elwali - Oussama Nasseur - Aya Sedqui</p>
+
+
+    <div class="section-title">Club Members</div>
+    <table>
+        <thead>
+        <tr>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Field</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>BENALI</td>
+            <td>Ahmed</td>
+            <td>Computer Science</td>
+        </tr>
+        <tr>
+            <td>EL FASSI</td>
+            <td>Fatima</td>
+            <td>Electrical Engineering</td>
+        </tr>
+        <tr>
+            <td>TAZI</td>
+            <td>Mohammed</td>
+            <td>Civil Engineering</td>
+        </tr>
+        <tr>
+            <td>OUHAMCHICH</td>
+            <td>Hajar</td>
+            <td>GIS Engineering</td>
+        </tr>
+        <tr>
+            <td>El Bakkali</td>
+            <td>Maria</td>
+            <td>GIS Engineering</td>
+        </tr>
+        <tr>
+            <td>Oudada</td>
+            <td>Youssef</td>
+            <td>Electrical Engineering</td>
+        </tr>
+        <tr>
+            <td>Brik</td>
+            <td>Kawtar</td>
+            <td>Material Engineering</td>
+        </tr>
+        <tr>
+            <td>Baaim</td>
+            <td>Fatiha</td>
+            <td>Electrical Engineering</td>
+        </tr>
+        <tr>
+            <td>Aberghaz</td>
+            <td>Fatima ezzahra</td>
+            <td>Material Engineering</td>
+        </tr>
+        <tr>
+            <td>Mounadel</td>
+            <td>Oussama</td>
+            <td>MSE Engineering</td>
+        </tr>
+        <tr>
+            <td>Bouloud</td>
+            <td>Mohammed</td>
+            <td>MSE Engineering</td>
+        </tr>
+        <tr>
+            <td>Nefdaoui</td>
+            <td>Asmaa</td>
+            <td>GLT Engineering</td>
+        </tr>
+        <tr>
+            <td>Aboulkacem</td>
+            <td>Hannaa</td>
+            <td>GLT Engineering</td>
+        </tr>
+        <tr>
+            <td>Bensaid</td>
+            <td>Zakaria</td>
+            <td>GLT Engineering</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="section-title">Contact</div>
+    <p>Email : Club_math_ehtp@gmail.com / Phone : +212 653377898</p>
+
+    <a href="/inscription" class="btn-join">Join the club</a>
+</div>
+
+<div class="footer">
+    <p>2026 CLUBEHTP - Hassania School of Public Works</p>
+</div>
+
+</body>
+</html>

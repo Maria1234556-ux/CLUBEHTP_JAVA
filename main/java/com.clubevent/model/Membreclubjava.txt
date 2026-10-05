@@ -1,0 +1,43 @@
+package com.clubevents.model;
+
+import javax.persistence.*;
+
+@Entity
+public class MembreClub {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String position;
+
+    @ManyToOne
+    @JoinColumn(name = "utilisateur_id")
+    private Utilisateur utilisateur;
+
+    @ManyToOne
+    @JoinColumn(name = "club_id")
+    private Club club;
+
+    public MembreClub() {}
+
+    public MembreClub(String position, Utilisateur utilisateur, Club club) {
+        this.position = position;
+        this.utilisateur = utilisateur;
+        this.club = club;
+    }
+
+    // Polymorphisme - Redéfinition de toString
+    @Override
+    public String toString() {
+        return (utilisateur != null ? utilisateur.getNom() : "?") + " - " + position + " @ " + (club != null ? club.getNom() : "?");
+    }
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getPosition() { return position; }
+    public void setPosition(String position) { this.position = position; }
+    public Utilisateur getUtilisateur() { return utilisateur; }
+    public void setUtilisateur(Utilisateur utilisateur) { this.utilisateur = utilisateur; }
+    public Club getClub() { return club; }
+    public void setClub(Club club) { this.club = club; }
+}

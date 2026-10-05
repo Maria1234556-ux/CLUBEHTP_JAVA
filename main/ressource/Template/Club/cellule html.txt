@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CLUBEHTP - Cellules du Club</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+        }
+
+        .header {
+            background: #003366;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-area img {
+            width: 40px;
+            height: 40px;
+            background: white;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            background: #8B0000;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .club-header {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .club-header h1 {
+            color: #003366;
+        }
+
+        .btn-create {
+            background: #8B0000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .cellules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .cellule-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .cellule-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .cellule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #8B0000;
+        }
+
+        .cellule-header h3 {
+            color: #003366;
+        }
+
+        .chef-badge {
+            background: #8B0000;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+
+        .cellule-description {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .cellule-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            width: 500px;
+            margin: 100px auto;
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 20px;
+            color: #003366;
+        }
+
+        .modal-content input, .modal-content textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .modal-content button {
+            background: #8B0000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .close {
+            float: right;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .footer {
+            background: #003366;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo-area">
+        <img src="https://www.laformation.ma/images/contenu/341624fa1.jpg" alt="Logo EHTP">
+        <h1>CLUBEHTP</h1>
+    </div>
+    <a href="/" class="back-link">Accueil</a>
+</div>
+
+<div class="container">
+    <div class="club-header">
+        <h1 id="clubName">Club</h1>
+        <button class="btn-create" onclick="openModal()">+ Nouvelle cellule</button>
+    </div>
+
+    <div class="cellules-grid" id="cellulesContainer">
+        <div class="cellule-card" onclick="showConversation(1)">
+            <div class="cellule-header">
+                <h3>Cellule Technique</h3>
+                <span class="chef-badge">Chef: Ahmed</span>
+            </div>
+            <div class="cellule-description">
+                Gère tout l'aspect technique du club, développement et maintenance.
+            </div>
+            <div class="cellule-stats">
+                <span>👥 14 members</span>
+                <span>💬 12 messages</span>
+            </div>
+        </div>
+
+        <div class="cellule-card" onclick="showConversation(2)">
+            <div class="cellule-header">
+                <h3>Cellule Communication</h3>
+                <span class="chef-badge">Chef: Fatima</span>
+            </div>
+            <div class="cellule-description">
+                Gère les réseaux sociaux, la communication interne et externe.
+            </div>
+            <div class="cellule-stats">
+                <span>👥 3 membres</span>
+                <span>💬 8 messages</span>
+            </div>
+        </div>
+
+        <div class="cellule-card" onclick="showConversation(3)">
+            <div class="Media & Design Cell">
+                <h3>Cellule événementiel</h3>
+                <span class="chef-badge">Chef: Karim</span>
+            </div>
+            <div class="cellule-description">
+                Organise les événements et réunions du club.
+            </div>
+            <div class="cellule-stats">
+                <span>👥 4 membres</span>
+                <span>💬 15 messages</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal pour créer une nouvelle cellule -->
+<div id="createModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h3>Créer une nouvelle cellule</h3>
+        <input type="text" id="celluleName" placeholder="Nom de la cellule">
+        <textarea id="celluleDesc" rows="3" placeholder="Description"></textarea>
+        <button onclick="createCellule()">Créer</button>
+    </div>
+</div>
+
+<div class="footer">
+    <p>2026 CLUBEHTP - Hassania School of Public Works</p>
+</div>
+
+<script>
+    // Récupérer l'ID du club depuis l'URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const clubId = urlParams.get('clubId');
+    const clubName = urlParams.get('clubName');
+
+    if (clubName) {
+        document.getElementById('clubName').innerText = clubName;
+    }
+
+    function openModal() {
+        document.getElementById('createModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('createModal').style.display = 'none';
+    }
+
+    function createCellule() {
+        const name = document.getElementById('celluleName').value;
+        const description = document.getElementById('celluleDesc').value;
+
+        if (name && description) {
+            // Ajouter la nouvelle cellule à la grille
+            const container = document.getElementById('cellulesContainer');
+            const newId = container.children.length + 1;
+
+            const newCellule = document.createElement('div');
+            newCellule.className = 'cellule-card';
+            newCellule.onclick = () => showConversation(newId);
+            newCellule.innerHTML = `
+                <div class="cellule-header">
+                    <h3>${name}</h3>
+                    <span class="chef-badge">Chef: Vous</span>
+                </div>
+                <div class="cellule-description">
+                    ${description}
+                </div>
+                <div class="cellule-stats">
+                    <span>👥 1 membres</span>
+                    <span>💬 0 messages</span>
+                </div>
+            `;
+            container.appendChild(newCellule);
+
+            closeModal();
+            document.getElementById('celluleName').value = '';
+            document.getElementById('celluleDesc').value = '';
+        }
+    }
+
+    function showConversation(celluleId) {
+        window.location.href = `/clubs/conversation?celluleId=${celluleId}&clubId=${clubId}&clubName=${clubName}`;
+    }
+
+    // Fermer le modal en cliquant en dehors
+    window.onclick = function(event) {
+        const modal = document.getElementById('createModal');
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+    // Récupérer le rôle de l'utilisateur (depuis une API ou session)
+let userRole = 'MEMBRE'; // À remplacer par la valeur réelle
+
+// Vérifier si l'utilisateur est du bureau
+function isBureau() {
+    return userRole === 'BUREAU';
+}
+
+// Afficher ou masquer le bouton de création
+function updateButtons() {
+    const createBtn = document.querySelector('.btn-create');
+    if (createBtn) {
+        if (isBureau()) {
+            createBtn.style.display = 'block';
+        } else {
+            createBtn.style.display = 'none';
+        }
+    }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+package com.clubevents.service;
+
+import com.clubevents.model.Evenement;
+import com.clubevents.model.Reunion;
+import com.clubevents.repository.EvenementRepository;
+import com.clubevents.repository.ReunionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+public class EventService {
+
+    @Autowired
+    private EvenementRepository evenementRepository;
+
+    @Autowired
+    private ReunionRepository reunionRepository;
+
+    public List<Evenement> getEvenementsOuvertsATous() {
+        return evenementRepository.findByOuvertATousTrue();
+    }
+
+    public List<Evenement> getEvenementsParClubs(List<Long> clubIds) {
+        if (clubIds.isEmpty()) return new ArrayList<>();
+        return evenementRepository.findByClubIds(clubIds);
+    }
+
+    public List<Reunion> getReunionsParClubs(List<Long> clubIds) {
+        if (clubIds.isEmpty()) return new ArrayList<>();
+        return reunionRepository.findByClubIds(clubIds);
+    }
+
+    @Transactional
+    public void ajouterPresence(Long reunionId, Long utilisateurId) {
+        System.out.println("Présence marquée pour réunion " + reunionId + " par utilisateur " + utilisateurId);
+    }
+}

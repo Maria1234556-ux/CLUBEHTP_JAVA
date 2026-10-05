@@ -1,0 +1,49 @@
+package com.clubevents.service;
+
+import com.clubevents.model.*;
+import com.clubevents.repository.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
+
+@Service
+public class UtilisateurService {
+
+    @Autowired
+    private UtilisateurRepository utilisateurRepository;
+
+    @Autowired
+    private ClubRepository clubRepository;
+
+    @Autowired
+    private MembreClubRepository membreClubRepository;
+
+    @Transactional
+    public Utilisateur inscrireUtilisateur(Utilisateur utilisateur) {
+        return utilisateurRepository.save(utilisateur);
+    }
+
+    @Transactional
+    public void ajouterMembreClub(Long utilisateurId, String clubNom, String position) {
+        Utilisateur utilisateur = utilisateurRepository.findById(utilisateurId)
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+
+        Club club = clubRepository.findByNom(clubNom);
+        if (club == null) {
+            club = new Club(clubNom);
+            club = clubRepository.save(club);
+        }
+
+        MembreClub membreClub = new MembreClub(position, utilisateur, club);
+        membreClubRepository.save(membreClub);
+    }
+
+    public Utilisateur getUtilisateur(Long id) {
+        return utilisateurRepository.findById(id).orElse(null);
+    }
+
+    public List<Long> getClubIdsByUtilisateur(Long utilisateurId) {
+        return membreClubRepository.findClubIdsByUtilisateurId(utilisateurId);
+    }
+}

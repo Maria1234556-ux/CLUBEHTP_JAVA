@@ -1,0 +1,12 @@
+package com.clubevents.repository;
+
+import com.clubevents.model.MembreClub;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import java.util.List;
+
+public interface MembreClubRepository extends JpaRepository<MembreClub, Long> {
+    @Query("SELECT m.club.id FROM MembreClub m WHERE m.utilisateur.id = :utilisateurId")
+    List<Long> findClubIdsByUtilisateurId(@Param("utilisateurId") Long utilisateurId);
+}

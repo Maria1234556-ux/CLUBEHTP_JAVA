@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CLUBEHTP - Conversation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+        }
+
+        .header {
+            background: #003366;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-area img {
+            width: 40px;
+            height: 40px;
+            background: white;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            background: #8B0000;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .chat-header {
+            background: #003366;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .chat-header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .messages-container {
+            height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message-sent {
+            align-items: flex-end;
+        }
+
+        .message-received {
+            align-items: flex-start;
+        }
+
+        .message-bubble {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            margin-bottom: 5px;
+        }
+
+        .message-sent .message-bubble {
+            background: #8B0000;
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message-received .message-bubble {
+            background: white;
+            color: #333;
+            border: 1px solid #ddd;
+            border-bottom-left-radius: 5px;
+        }
+
+        .message-info {
+            font-size: 12px;
+            color: #888;
+            margin: 0 10px;
+        }
+
+        .input-area {
+            display: flex;
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #ddd;
+        }
+
+        .input-area input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        .input-area button {
+            background: #8B0000;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+        .footer {
+            background: #003366;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo-area">
+        <img src="https://www.laformation.ma/images/contenu/341624fa1.jpg" alt="Logo EHTP">
+        <h1>CLUBEHTP</h1>
+    </div>
+    <a href="javascript:history.back()" class="back-link">← Back</a>
+</div>
+
+<div class="container">
+    <div class="chat-header">
+        <h1 id="cellName">Cell Name</h1>
+        <p id="cellInfo"></p>
+    </div>
+
+    <div class="messages-container" id="messagesContainer">
+        <div class="message message-received">
+            <div class="message-bubble">
+                Welcome to this cell! 👋
+            </div>
+            <div class="message-info">System • now</div>
+        </div>
+    </div>
+
+    <div class="input-area">
+        <input type="text" id="messageInput" placeholder="Type your message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<div class="footer">
+    <p>2026 CLUBEHTP - Hassania School of Public Works</p>
+</div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const celluleId = urlParams.get('celluleId');
+    const cellName = urlParams.get('cellName') || "Cell";
+    const userRole = urlParams.get('role') || 'MEMBRE';
+
+    // Set cell name and info
+    document.getElementById('cellName').innerText = cellName;
+
+    const cellsInfo = {
+        1: "Media & Design Cell - 14 members | Leader: Ahmed",
+        2: "Logistic Cell - 14 members | Leader: Fatima",
+        3: "Event Cell - 14 members | Leader: Karim",
+        4: "Sponsoring Cell - 14 members | Leader: Fouad",
+        5: "Project Cell - 14 members | Leader: Mouad",
+        6: "Course Cell - 14 members | Leader: Laila"
+    };
+
+    document.getElementById('cellInfo').innerText = cellsInfo[celluleId] || "14 members";
+
+    function sendMessage() {
+        const input = document.getElementById('messageInput');
+        const message = input.value.trim();
+
+        if (message) {
+            const container = document.getElementById('messagesContainer');
+            const now = new Date();
+            const time = now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
+
+            const newMessage = document.createElement('div');
+            newMessage.className = 'message message-sent';
+            newMessage.innerHTML = `
+                <div class="message-bubble">
+                    ${message.replace(/</g, '&lt;')}
+                </div>
+                <div class="message-info">You • ${time}</div>
+            `;
+            container.appendChild(newMessage);
+            input.value = '';
+            container.scrollTop = container.scrollHeight;
+        }
+    }
+
+    document.getElementById('messageInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+
+    const container = document.getElementById('messagesContainer');
+    container.scrollTop = container.scrollHeight;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CLUBEHTP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+        }
+
+        .header {
+            background: #003366;
+            color: white;
+            padding: 15px 40px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-area img {
+            width: 45px;
+            height: 45px;
+            background: white;
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+        .site-title h1 {
+            font-size: 24px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: white;
+            min-width: 180px;
+            top: 100%;
+            left: 0;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .dropdown-content a {
+            color: #003366;
+            padding: 10px 15px;
+            display: block;
+            border-bottom: 1px solid #eee;
+        }
+
+        .dropdown-content a:hover {
+            background: #8B0000;
+            color: white;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .btn-create {
+            background: #8B0000;
+            padding: 8px 20px;
+            border-radius: 25px;
+        }
+
+        .banner {
+            background-image: url('/images/photo.jpeg');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            margin-top: 70px;
+            position: relative;
+        }
+
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,51,102,0.65);
+        }
+
+        .banner-text {
+            position: relative;
+            z-index: 2;
+            color: white;
+            padding: 50px;
+            max-width: 650px;
+        }
+
+        .banner-text h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .banner-text p {
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 0 30px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            font-size: 28px;
+            color: #003366;
+            margin-bottom: 25px;
+            font-weight: normal;
+            border-left: 3px solid #8B0000;
+            padding-left: 15px;
+        }
+
+        .description-texte {
+            line-height: 1.8;
+            color: #333;
+            text-align: justify;
+        }
+
+        .description-texte p {
+            margin-bottom: 15px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: #e8e8e8;
+            padding: 20px 30px;
+            border-radius: 10px;
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #8B0000;
+        }
+
+        .filiere-liste {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .filiere-item {
+            background: #e8e8e8;
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: #333;
+        }
+
+        .clubs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .club-card {
+            background: #e8e8e8;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .club-card:hover {
+            background: #d0d0d0;
+            transform: translateY(-3px);
+        }
+
+        .club-card h4 {
+            color: #003366;
+            margin-bottom: 5px;
+        }
+
+        .club-card p {
+            color: #666;
+            font-size: 13px;
+        }
+
+        .btn-join {
+            display: inline-block;
+            background: #8B0000;
+            color: white;
+            padding: 12px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .btn-join:hover {
+            background: #a00000;
+        }
+
+        .footer {
+            background: #003366;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 50px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+            .banner {
+                height: 280px;
+                margin-top: 110px;
+            }
+            .banner-text h1 {
+                font-size: 28px;
+            }
+            .container {
+                padding: 0 20px;
+            }
+            .stats {
+                flex-direction: column;
+            }
+            .photos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.gallery-photo {
+    width: 30%;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .photos-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo-area">
+        <img src="https://www.laformation.ma/images/contenu/341624fa1.jpg" alt="Logo EHTP">
+        <div class="site-title">
+            <h1>CLUBEHTP</h1>
+        </div>
+    </div>
+    <ul class="nav-menu">
+        <li><a href="/">Accueil</a></li>
+        <li class="dropdown">
+            <a href="#">Discover our club</a>
+            <div class="dropdown-content">
+                <a href="/clubs/It">IT Club</a>
+                <a href="/clubs/Social">Social Club</a>
+                <a href="/clubs/enactus">Enactus Club</a>
+                <a href="/clubs/mathematique">Mathematique Club</a>
+                <a href="/clubs/Forum">Forum Club</a>
+                <a href="/clubs/hje">HJE Club</a>
+                <a href="/clubs/rotaract">Rotaract Club</a>
+                <a href="/clubs/amicidart">Amicidart Club</a>
+                <a href="/clubs/Fds">FDS Club</a>
+                <a href="/clubs/GDB">Great Debater Club</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="#">Event</a>
+            <div class="dropdown-content">
+                <a href="#">Global Event </a>
+                <a href="#">Specific  Event </a>
+            </div>
+        </li>
+        <li><a href="#">Meeting</a></li>
+        <li><a href="#">Statut</a></li>
+        <li><a href="/inscription" class="btn-create">Create your account</a></li>
+    </ul>
+</div>
+
+<div class="banner">
+    <div class="banner-text">
+        <h1>CLUBEHTP</h1>
+        <p>The first Moroccan platform that facilitates the management of clubs within the Hassania School of Public Works.</p>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="section">
+        <h2>Hassania School of Public Works</h2>
+        <div class="description-texte">
+            <p>Hassania School of Public Works (EHTP) is a leading engineering school located in Casablanca. It was established in 1971 by the Ministry of Public Works to train engineers in the fields of construction and public works (BTP), water, electrical energy, and territorial planning.</p>
+            <p>In 1993, Hassania School of Public Works (EHTP) became a public institution under the supervision of the Ministry of Equipment and Transport..</p>
+            <p>Today, Hassania School of Public Works (EHTP) trains high-level engineers in the fields of civil engineering, electrical engineering, hydraulics, environmental engineering, computer science, geographic sciences, and meteorology..</p>
+        </div>
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">1971</div>
+                <div>Creation</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1000+</div>
+                <div>Students</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">+7</div>
+                <div>Clubs</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Engineering fields</h2>
+        <div class="filiere-liste">
+            <div class="filiere-item">Civil engineering</div>
+            <div class="filiere-item">electrical engineering</div>
+            <div class="filiere-item">Hydraulic and water ressources engineering</div>
+            <div class="filiere-item">Material science engineering</div>
+            <div class="filiere-item">Computer science engineering</div>
+            <div class="filiere-item">Geomatics and information system engineering</div>
+            <div class="filiere-item">Meteorologie science engineering</div>
+            <div class="filiere-item">Mathematics and system engineering</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Our clubs</h2>
+        <div class="clubs-grid">
+            <div class="club-card" onclick="location.href='/clubs/It'">
+                <h4>IT Club </h4>
+                <p>Vulgarisation informatique</p>
+            </div>
+            <div class="club-card" onclick="location.href='/clubs/Social'">
+                <h4>Social Club </h4>
+                <p>Actions humanitaires et sociaux</p>
+            </div>
+            <div class="club-card" onclick="location.href='/clubs/enactus'">
+                <h4>Enactus Club </h4>
+                <p>Entrepreneuriat social</p>
+            </div>
+            <div class="club-card" onclick="location.href='/clubs/mathematique'">
+                <h4>Mathematique Club </h4>
+                <p>Vulgarisation mathématique</p>
+            </div>
+            <div class="club-card" onclick="location.href='/clubs/Forum'">
+                <h4>Forum Club </h4>
+                <p>Découverte du monde professionnel</p>
+            </div>
+            <div class="club-card" onclick="location.href='/clubs/hje'">
+                <h4>HJE Club </h4>
+                <p>Hassania Junior Entreprise</p>
+            </div>
+            <div class="club-card" onclick="location.href='/clubs/rotaract'">
+                <h4>Rotaract Club </h4>
+                <p>Travaux sociaux et humanitaires</p>
+            </div>
+            <div class="club-card" onclick="location.href='/clubs/amicidart'">
+                <h4>Amicidart Club </h4>
+                <p>Art (dessin & théatre & music)</p>
+            </div>
+            <div class="club-card" onclick="location.href='/clubs/FDS'">
+                <h4>FDS Club </h4>
+                <p>Vulgarisation scientifique (Physique ,chimie , astronomie ,Biologie..)</p>
+            </div>
+            <div class="club-card" onclick="location.href='/clubs/GDB'">
+                <h4>Great Debater Club </h4>
+                <p>Debat et eloquence</p>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <a href="/inscription" class="btn-join">Create your account</a>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Our clubs in pictures</h2>
+        <div class="photos-grid">
+            <img src="/images/event5.jpeg" alt="Club activity 5" class="gallery-photo">
+            <img src="/images/event2.jpeg" alt="Club activity 2" class="gallery-photo">
+            <img src="/images/event3.jpeg" alt="Club activity 3" class="gallery-photo">
+            <img src="/images/event4.jpeg" alt="Club activity 4" class="gallery-photo">
+            <img src="/images/event1.jpeg" alt="Club activity 1" class="gallery-photo">
+            <img src="/images/event6.jpeg" alt="Club activity 6" class="gallery-photo">
+        </div>
+    </div>
+
+</div>
+
+<div class="footer">
+    <p>2026 CLUBEHTP - Hassania School of Public Works.</p>
+    <p>"Former des entrepreneurs modernes plutot que des ingenieurs techniciens"</p>
+</div>
+
+
+</body>
+</html>

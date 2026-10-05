@@ -1,0 +1,12 @@
+package com.clubevents.repository;
+
+import com.clubevents.model.Reunion;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import java.util.List;
+
+public interface ReunionRepository extends JpaRepository<Reunion, Long> {
+    @Query("SELECT r FROM Reunion r WHERE r.club.id IN :clubIds")
+    List<Reunion> findByClubIds(@Param("clubIds") List<Long> clubIds);
+}

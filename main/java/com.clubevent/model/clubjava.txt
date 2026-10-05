@@ -1,0 +1,46 @@
+package com.clubevents.model;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+public class Club {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String nom;
+
+    @OneToMany(mappedBy = "club")
+    private List<MembreClub> membres = new ArrayList<>();
+
+    @OneToMany(mappedBy = "club")
+    private List<Evenement> evenements = new ArrayList<>();
+
+    @OneToMany(mappedBy = "club")
+    private List<Reunion> reunions = new ArrayList<>();
+
+    public Club() {}
+
+    public Club(String nom) {
+        this.nom = nom;
+    }
+
+    // Polymorphisme - Redéfinition de toString
+    @Override
+    public String toString() {
+        return "Club: " + nom;
+    }
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getNom() { return nom; }
+    public void setNom(String nom) { this.nom = nom; }
+    public List<MembreClub> getMembres() { return membres; }
+    public void setMembres(List<MembreClub> membres) { this.membres = membres; }
+    public List<Evenement> getEvenements() { return evenements; }
+    public void setEvenements(List<Evenement> evenements) { this.evenements = evenements; }
+    public List<Reunion> getReunions() { return reunions; }
+    public void setReunions(List<Reunion> reunions) { this.reunions = reunions; }
+}

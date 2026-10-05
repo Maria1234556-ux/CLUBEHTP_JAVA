@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CLUBEHTP - Create your account</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url('/images/back_ins.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .form-card h2 {
+            color: #003366;
+            margin-bottom: 10px;
+        }
+
+        .form-card h3 {
+            color: #8B0000;
+            margin: 30px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #8B0000;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .club-entry {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #8B0000;
+        }
+
+        .btn-add {
+            background: #8B0000;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+        .btn-remove {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #003366 0%, #8B0000 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 30px;
+            // Après avoir reçu le userId, ajoute ces 2 lignes :
+localStorage.setItem('userRole', role);
+localStorage.setItem('userId', userId);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #8B0000;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="form-card">
+        <h2>Create your account CLUBEHTP</h2>
+        <p>Join our community of EHTP clubs</p>
+
+        <form id="userForm">
+            <h3>Personnel Information</h3>
+
+            <div class="form-group">
+                <label>Last name</label>
+                <input type="text" id="nom" required>
+            </div>
+
+            <div class="form-group">
+                <label>First name</label>
+                <input type="text" id="prenom" required>
+            </div>
+
+            <div class="form-group">
+                <label>Age</label>
+                <input type="number" id="age" required min="17" max="99">
+            </div>
+
+            <div class="form-group">
+                <label>Field</label>
+                <select id="filiere" required>
+                    <option value="">Select your field</option>
+                    <option>Electrical Engineering</option>
+                    <option>Computer Science Engineering</option>
+                    <option>Geomatics and Information System</option>
+                    <option>Material Science Engineering</option>
+                    <option>Météorologie</option>
+                    <option>Mathematics and System Engineering</option>
+                    <option>Civil Engineering</option>
+                    <option>Hydraulic and Water Resources</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Studies year</label>
+                <select id="annee" required>
+                    <option value="">Select your year studies</option>
+                    <option>First year</option>
+                    <option>Second year</option>
+                    <option>Third year</option>
+                    <option>Fourth year</option>
+                    <option>Fifth year</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Your role in the club *</label>
+                <select id="role" required>
+                    <option value="">Select your role</option>
+                    <option value="BUREAU">Bureau (President, VP, Secretary, Treasurer)</option>
+                    <option value="MEMBRE">Simple Member</option>
+                </select>
+            </div>
+
+            <h3>Clubs and cells</h3>
+            <p>Select the club you want to join</p>
+
+            <div id="clubsList">
+                <div class="club-entry">
+                    <div class="form-group">
+                        <label>Name of club</label>
+                        <select class="club-nom" required>
+                            <option value="">Select a club</option>
+                            <option>IT Club</option>
+                            <option>Social Club</option>
+                            <option>Enactus Club</option>
+                            <option>Mathematique Club</option>
+                            <option>Forum Club</option>
+                            <option>HJE Club</option>
+                            <option>Rotaract Club</option>
+                            <option>Amicidart Club</option>
+                            <option>FDS Club</option>
+                            <option>Great Debater Club</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Cell of club</label>
+                        <select class="club-position" required>
+                            <option value="">Choose your cell</option>
+                            <option>President</option>
+                            <option>Vice-president</option>
+                            <option>Secretary</option>
+                            <option>Media Manager</option>
+                            <option>Design Manager</option>
+                            <option>Logistics Manager</option>
+                            <option>Sponsorship Manager</option>
+                            <option>Member</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn-add" onclick="ajouterClub()">+ Add another club</button>
+            <button type="submit" class="btn-submit">Create my account</button>
+        </form>
+
+        <a href="/" class="back-link">Return to accueil</a>
+    </div>
+</div>
+
+<script>
+    function ajouterClub() {
+        const clubsDiv = document.getElementById('clubsList');
+        const newClub = document.createElement('div');
+        newClub.className = 'club-entry';
+        newClub.innerHTML = `
+            <div class="form-group">
+                <label>Name of club</label>
+                <select class="club-nom" required>
+                    <option value="">Select a club</option>
+                    <option>IT Club</option>
+                    <option>Social Club</option>
+                    <option>Enactus Club</option>
+                    <option>Mathematique Club</option>
+                    <option>Forum Club</option>
+                    <option>HJE Club</option>
+                    <option>Rotaract Club</option>
+                    <option>Amicidart Club</option>
+                    <option>FDS Club</option>
+                    <option>Great Debater Club</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Cell of club</label>
+                <select class="club-position" required>
+                    <option value="">Choose your cell</option>
+                    <option>President</option>
+                    <option>Vice-president</option>
+                    <option>Secretary</option>
+                    <option>Media Manager</option>
+                    <option>Design Manager</option>
+                    <option>Logistics Manager</option>
+                    <option>Sponsorship Manager</option>
+                    <option>Member</option>
+                </select>
+            </div>
+            <button type="button" class="btn-remove" onclick="this.parentElement.remove()">Remove</button>
+        `;
+        clubsDiv.appendChild(newClub);
+    }
+
+    document.getElementById('userForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const nom = document.getElementById('nom').value;
+        const prenom = document.getElementById('prenom').value;
+        const age = document.getElementById('age').value;
+        const filiere = document.getElementById('filiere').value;
+        const annee = document.getElementById('annee').value;
+
+        const userResponse = await fetch('/api/inscription', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+        nom: nom,
+        prenom: prenom,
+        age: parseInt(age),
+        filiere: filiere,
+        annee: annee,        // ← IL MANQUE LA VIRGULE ICI !
+        role: document.getElementById('role').value
+    })
+});
+
+        const userId = await userResponse.json();
+
+        const clubSelects = document.querySelectorAll('.club-nom');
+        const positionSelects = document.querySelectorAll('.club-position');
+
+        for(let i = 0; i < clubSelects.length; i++) {
+            const clubNom = clubSelects[i].value;
+            const position = positionSelects[i].value;
+
+            if(clubNom && position) {
+                await fetch('/api/ajouter-club?userId=' + userId + '&clubNom=' + encodeURIComponent(clubNom) + '&position=' + encodeURIComponent(position), {
+                    method: 'POST'
+                });
+            }
+        }
+
+        window.location.href = '/dashboard/' + userId;
+    });
+</script>
+</body>
+</html>

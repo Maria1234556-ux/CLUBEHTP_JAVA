@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des Événements Clubs</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <div class="welcome-card">
+        <h1>Bienvenue sur la Plateforme de Gestion des Clubs</h1>
+        <p>Gérez vos événements, réunions et présences facilement</p>
+        <a href="/inscription" class="btn btn-primary">Commencer l'inscription</a>
+    </div>
+</div>
+</body>
+</html>
